@@ -7,6 +7,9 @@ RTMP_CONNECTIONS=${RTMP_CONNECTIONS-1024}
 RTMP_STREAM_NAMES=${RTMP_STREAM_NAMES-live,testing}
 RTMP_STREAMS=$(echo ${RTMP_STREAM_NAMES} | sed "s/,/\n/g")
 RTMP_PUSH_URLS=$(echo ${RTMP_PUSH_URLS} | sed "s/,/\n/g")
+HLS_PLAYLIST_LENGTH=${HLS_PLAYLIST_LENGTH-4s}
+HLS_FRAGMENT=${HLS_FRAGMENT-1s}
+HLS_CLEANUP=${HLS_CLEANUP-off}
 
 apply_config() {
 
@@ -97,8 +100,9 @@ if [ "${HLS}" = "true" ]; then
 cat >>${NGINX_CONFIG_FILE} <<!EOF
             hls on;
             hls_path /tmp/hls;
-            hls_fragment    1;
-            hls_playlist_length     20;
+            hls_fragment    ${HLS_FRAGMENT};
+            hls_playlist_length     ${HLS_PLAYLIST_LENGTH};
+            hls_cleanup    ${HLS_CLEANUP}
 !EOF
     HLS="false"
 fi
