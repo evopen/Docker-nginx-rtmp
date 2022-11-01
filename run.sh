@@ -102,7 +102,7 @@ cat >>${NGINX_CONFIG_FILE} <<!EOF
             hls_path /tmp/hls;
             hls_fragment    ${HLS_FRAGMENT};
             hls_playlist_length     ${HLS_PLAYLIST_LENGTH};
-            hls_cleanup    ${HLS_CLEANUP}
+            hls_cleanup    ${HLS_CLEANUP};
 !EOF
     HLS="false"
 fi
