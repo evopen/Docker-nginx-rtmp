@@ -132,6 +132,6 @@ else
     echo "CONFIG EXISTS - Not creating!"
 fi
 
-echo "Starting server
+echo "Starting server"
 /opt/nginx/sbin/nginx -g "daemon off;"
 
