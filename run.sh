@@ -10,6 +10,9 @@ RTMP_PUSH_URLS=$(echo ${RTMP_PUSH_URLS} | sed "s/,/\n/g")
 HLS_PLAYLIST_LENGTH=${HLS_PLAYLIST_LENGTH-4s}
 HLS_FRAGMENT=${HLS_FRAGMENT-1s}
 HLS_CLEANUP=${HLS_CLEANUP-off}
+HLS_FRAGMENT_NAMING=${HLS_FRAGMENT_NAMING-sequential}
+HLS_FRAGMENT_NAMING_GRANULARITY=${HLS_FRAGMENT_NAMING_GRANULARITY-10}
+
 
 apply_config() {
 
@@ -103,6 +106,8 @@ cat >>${NGINX_CONFIG_FILE} <<!EOF
             hls_fragment    ${HLS_FRAGMENT};
             hls_playlist_length     ${HLS_PLAYLIST_LENGTH};
             hls_cleanup    ${HLS_CLEANUP};
+            hls_fragment_naming    ${HLS_FRAGMENT_NAMING};
+            hls_fragment_naming_granularity      ${HLS_FRAGMENT_NAMING_GRANULARITY};
 !EOF
     HLS="false"
 fi
