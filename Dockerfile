@@ -47,6 +47,10 @@ RUN	cd /tmp										&&	\
 	make										&&	\
 	make install
 
+FROM rust:1.65.0-alpine
+RUN apk add musl-dev
+RUN cargo install --git https://github.com/evopen/hls-fragment-cleaner --tag 0.1.0 --target x86_64-unknown-linux-musl
+
 FROM alpine:latest
 LABEL org.opencontainers.image.authors="jason@jasonrivers.co.uk"
 RUN apk update		&& \
@@ -58,6 +62,7 @@ RUN apk update		&& \
 
 COPY --from=0 /opt/nginx /opt/nginx
 COPY --from=0 /tmp/nginx-rtmp-module/stat.xsl /opt/nginx/conf/stat.xsl
+COPY --from=1 /usr/local/cargo/bin/hls-fragment-cleaner /usr/local/bin/hls-fragment-cleaner
 RUN rm /opt/nginx/conf/nginx.conf
 ADD run.sh /
 

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+/usr/local/bin/hls-fragment-cleaner &
+
 NGINX_CONFIG_FILE=/opt/nginx/conf/nginx.conf
 
 
